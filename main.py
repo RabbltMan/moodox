@@ -1,6 +1,6 @@
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.app import MDApp
-from bin.components import *
+from partials.components import *
 
 class MainApp(MDApp):
     def __init__(self, **kwargs):
