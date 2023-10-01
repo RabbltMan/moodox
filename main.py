@@ -12,9 +12,9 @@ class MainApp(MDApp):
         self.screenManager = ScreenManager()
         # render main screen
         self.mainScreen = Screen(name="main")
-        self.mainScreen.add_widget(components.MainTopNaviBar, index=1)
+        self.mainScreen.add_widget(components.logo, index=1)
+        self.mainScreen.add_widget(components.MainFloatingHeadButton, index=1)
         self.mainScreen.add_widget(components.MainContent, index=2)
-        self.mainScreen.add_widget(components.logo)
         self.screenManager.add_widget(self.mainScreen)
         # screen manager state
         self.screenManager.current = "main"
