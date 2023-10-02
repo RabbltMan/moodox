@@ -1,7 +1,11 @@
+from os import listdir
 from kivymd.uix.fitimage import FitImage
 from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.card import MDCard
+from kivymd.uix.fitimage import FitImage
 from kivymd.uix.button import MDFloatingActionButton
 from kivy.uix.image import Image
+from random import choice
 
 class Components(object):
     def __init__(self) -> None:
@@ -23,13 +27,29 @@ class Components(object):
             pos_hint={"top": 0.98}
         )
 
-        self.MainContent = MDBoxLayout(
+        self.MainBackgroundFilter = MDBoxLayout(
             md_bg_color=(216/255, 185/255, 156/255, 1),
         )
-        self.MainBackground = FitImage(
+        self.BackgroundImage = FitImage(
             source="./src/bg.jpg",
             pos_hint={"top": 1},
             opacity=0.5
         )
-        self.MainContent.add_widget(self.MainBackground)
+        self.MainBackgroundFilter.add_widget(self.BackgroundImage)
 
+        self.DailyCard = MDCard(
+            id='daily_card',
+            radius=24,
+            md_bg_color=(0.3, 0.3, 0.3, 0.5),
+            pos_hint={"center_x": .5, "center_y": .5},
+            size_hint=(0.9, 0.77),
+        )
+        self.imageDir = listdir('./src/card_images/')
+        self.cardImage = FitImage(
+            source='./src/card_images/' + choice(self.imageDir),
+            pos_hint={"top": 1},
+            size_hint_y=0.3,
+            opacity=0.77,
+            radius=(24, 24, 0, 0),
+        )
+        self.DailyCard.add_widget(self.cardImage)

@@ -29,8 +29,9 @@ class MainApp(MDApp):
         # render main screen
         self.mainScreen = Screen(name="main")
         self.mainScreen.add_widget(components.logo, index=1)
-        self.mainScreen.add_widget(components.MainFloatingHeadButton, index=1)
-        self.mainScreen.add_widget(components.MainContent, index=2)
+        self.mainScreen.add_widget(components.MainFloatingHeadButton, index=2)
+        self.mainScreen.add_widget(components.MainBackgroundFilter, index=2)
+        self.mainScreen.add_widget(components.DailyCard)
         self.screenManager.add_widget(self.mainScreen)
         # execute callbacks
         Clock.schedule_interval(partial(self.renderColorfulButtonIcon, components.MainFloatingHeadButton), 0.5)
