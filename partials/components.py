@@ -5,8 +5,9 @@ from kivymd.uix.gridlayout import MDGridLayout
 from kivy.uix.label import Label
 from kivymd.uix.button import MDFloatingActionButton
 from kivy.uix.image import Image
-from random import choice
+from random import choice, randint
 from os import listdir
+from time import sleep
 from datetime import date
 
 class Components(object):
@@ -50,7 +51,7 @@ class Components(object):
         self.cardImage = FitImage(
             source='./src/card_images/' + choice(self.imageDir),
             pos_hint={"top": 1},
-            size_hint_y=0.3,
+            size_hint_y=0.33,
             opacity=0.77,
             radius=(24, 24, 0, 0),
         )
@@ -84,8 +85,32 @@ class Components(object):
             font_size="16sp",
             font_name="./src/DottedSong.ttf"
         )
+        self.faceSrc = randint(0, 9)
+        self.face = Image(
+            source="./src/emojis/" + listdir('./src/emojis/')[self.faceSrc % len(listdir('./src/emojis/'))],
+            pos_hint={"center_x": 0.5, "center_y": 0.5},
+            size_hint=(0.2, 0.2),
+            opacity=0.95,
+        )
+        self.changeFaceBtn = MDFloatingActionButton(
+            pos_hint={"center_x": 0.5, "center_y": 0.5},
+            size_hint=(0.2, 0.2),
+            opacity=0,
+            md_bg_color=(0.5, 0.5, 0.5, 0),
+            icon_color=(0.3, 0.4, 0.7, 0),
+            shadow_offset=(0, 0),
+            shadow_color=(224/255, 205/255, 182/255, 0),
+            elevation=0,
+        )
+        self.changeFaceBtn.bind(on_press=self.handleChange)
         self.DailyCard.add_widget(self.cardImage)
         self.dateSection.add_widget(self.monthLabel)
         self.dateSection.add_widget(self.weekDayLabel)
         self.dateSection.add_widget(self.dayLabel)
         self.DailyCard.add_widget(self.dateSection)
+        self.DailyCard.add_widget(self.face)
+        self.DailyCard.add_widget(self.changeFaceBtn)
+
+    def handleChange(self, *args):
+        self.faceSrc += 1
+        self.face.source = "./src/emojis/" + listdir('./src/emojis/')[self.faceSrc % len(listdir('./src/emojis/'))]

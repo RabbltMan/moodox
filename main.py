@@ -22,6 +22,9 @@ class MainApp(MDApp):
             b = 1 if b > 1 else 0
         args[0].icon_color = (r, g, b, 1)
 
+    def debug(self, *args):
+        pass
+
     def build(self):
         components = Components()
         # render screen manager
@@ -33,8 +36,10 @@ class MainApp(MDApp):
         self.mainScreen.add_widget(components.MainBackgroundFilter, index=2)
         self.mainScreen.add_widget(components.DailyCard)
         self.screenManager.add_widget(self.mainScreen)
+        
         # execute callbacks
         Clock.schedule_interval(partial(self.renderColorfulButtonIcon, components.MainFloatingHeadButton), 0.5)
+        Clock.schedule_interval(partial(self.debug, components), 1)
         # screen manager state
         self.screenManager.current = "main"
         return self.screenManager
